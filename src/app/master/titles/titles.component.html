@@ -15,13 +15,13 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <form class="">
+                <form [formGroup]="formdata" (ngSubmit)="submit(formdata.value)" class="">
                     <div class="position-relative form-group">
-                        <label for="exampleEmail" class="">Title<span class="text-danger">*</span></label>
-                        <input placeholder="title" type="email" class="form-control">
-                        <em class="error text-danger small">Please enter your firstname</em>
+                        <label class="">Title<span class="text-danger">*</span></label>
+                        <input placeholder="title" type="text" formControlName="name" class="form-control">
+                        <em class="error text-danger small" *ngIf="formdata.controls.name.touched && formdata.controls.name.invalid">Please enter your firstname</em>
                     </div>
-                    <input type="submit" class="mt-1 btn btn-primary" value="save">
+                    <input type="submit" [disabled]="formdata.invalid" class="mt-1 btn btn-primary" value="Save" />
                 </form>
             </div>
         </div>
@@ -39,11 +39,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><button class="mb-2 mr-2 btn-icon btn-icon-only btn-pill btn btn-primary"><i class="pe-7s-tools btn-icon-wrapper"> </i></button>
-                            <button class="mb-2 mr-2 btn-icon btn-pill btn btn-danger"><i class="pe-7s-trash btn-icon-alt"> </i></button></td>
-                        <td class="text-right">1</td>
-                        <td>Mr</td>
+                    <tr *ngFor="let data of result;let i = index;">
+                        <td><button (click)="edit(data.id)" class="mb-2 mr-2 btn-icon btn-icon-only btn-pill btn btn-primary"><i class="pe-7s-tools btn-icon-wrapper"> </i></button>
+                            <button (click)="delete(data.id)" class="mb-2 mr-2 btn-icon btn-pill btn btn-danger"><i class="pe-7s-trash btn-icon-alt"> </i></button></td>
+                        <td class="text-right">{{ i + 1 }}</td>
+                        <td>{{ data.name }}</td>
                         
                     </tr>
                    
